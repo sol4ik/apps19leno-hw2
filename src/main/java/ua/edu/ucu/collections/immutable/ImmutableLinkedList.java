@@ -179,10 +179,14 @@ public final class ImmutableLinkedList implements ImmutableList {
     }
 
     public Object getFirst() {
+        if (head == null)
+            return null;
         return head.getValue();
     }
 
     public Object getLast() {
+        if (tail == null)
+            return null;
         return tail.getValue();
     }
 
