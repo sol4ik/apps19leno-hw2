@@ -35,7 +35,7 @@ public class NodeTest {
 
     @Test
     public void getPrev() {
-        assertEquals(second, third.getPrevious());
+        assertEquals(second, third.getPrev());
         assertNull(forth.getPrev());
     }
 
