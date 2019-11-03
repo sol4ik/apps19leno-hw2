@@ -2,6 +2,9 @@ package ua.edu.ucu.collections.immutable;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 public class ImmutableArrayListTest {
@@ -87,5 +90,10 @@ public class ImmutableArrayListTest {
     public void toArray() {
         Integer[] arr = (Integer[]) array.toArray();
         assertEquals(new Integer[] {4, 2, 5}, arr);
+    }
+
+    @Test
+    public void testToString() {
+        assertEquals(Arrays.toString(new Object[] {4, 2, 5}), array.toString());
     }
 }

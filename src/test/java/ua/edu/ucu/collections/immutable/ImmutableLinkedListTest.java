@@ -4,21 +4,24 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class ImmutableLinkedListTest {
-    
-    @Test
-    public void testSomeMethod() {
-    }
+    private ImmutableLinkedList empty = new ImmutableLinkedList();
+    private ImmutableLinkedList list = new ImmutableLinkedList(new Object[] {2, 3, 4});
 
     @Test
     public void getHead() {
+        assertNull(empty.getHead());
+        assertEquals(2, list.getHead().getValue());
     }
 
     @Test
     public void getTail() {
+        assertNull(empty.getTail());
+        assertEquals(4, list.getTail().getValue());
     }
 
     @Test
     public void add() {
+        assertEquals(new Object[] {1}, empty.add(1).toArray());
     }
 
     @Test
