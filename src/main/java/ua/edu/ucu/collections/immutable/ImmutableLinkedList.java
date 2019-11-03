@@ -14,37 +14,6 @@ public final class ImmutableLinkedList implements ImmutableList {
         tail = null;
     }
 
-    public ImmutableLinkedList(int size, Node head) {
-        this.size = size;
-        if (head == null) {
-            this.head = null;
-        }
-        else {
-            this.head = head.copy();
-        }
-        Node curNode = this.head;
-        Node curPrev = null;
-        Node curToCopyFrom = head;
-        for (int i = 0; i < size; i++) {
-            if (curNode == null) {
-                continue;
-            }
-            curNode.setNext(curToCopyFrom.getNext().copy());
-            curNode.setPrev(curPrev);
-
-            curNode = curNode.getNext();
-            curPrev = curNode;
-            curToCopyFrom = curToCopyFrom.getNext();
-        }
-        if (curNode == null) {
-            this.tail = null;
-        }
-        else {
-            this.tail = curNode.copy();
-            this.tail.setPrev(curNode.getPrev());
-        }
-    }
-
     public ImmutableLinkedList(Object[] elements) {
         size = elements.length;
         head = new Node(elements[0]);
