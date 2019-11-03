@@ -38,5 +38,8 @@ public class Queue {
 
     public void enqueue(Object e) {
         elements = elements.addLast(e);
+        if (elements.size() == 1) {
+            peek = elements.getHead();
+        }
     }
 }
