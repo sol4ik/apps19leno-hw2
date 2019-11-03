@@ -4,7 +4,7 @@ import ua.edu.ucu.collections.immutable.ImmutableLinkedList;
 import ua.edu.ucu.collections.immutable.Node;
 
 public class Queue {
-    private Node peek;
+    private Object peek;
     private ImmutableLinkedList elements;
 
     public Queue() {
@@ -13,15 +13,12 @@ public class Queue {
     }
 
     public Queue(ImmutableLinkedList elements) {
-        this.peek = elements.getHead();
+        this.peek = elements.getFirst();
         this.elements = elements;
     }
 
     public Object getPeek() {
-        if (peek != null) {
-            return peek.getValue();
-        }
-        return null;
+        return peek;
     }
 
     public Object dequeue() {
@@ -39,7 +36,7 @@ public class Queue {
     public void enqueue(Object e) {
         elements = elements.addLast(e);
         if (elements.size() == 1) {
-            peek = elements.getHead();
+            peek = elements.getFirst();
         }
     }
 }

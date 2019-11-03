@@ -4,7 +4,7 @@ import ua.edu.ucu.collections.immutable.ImmutableLinkedList;
 import ua.edu.ucu.collections.immutable.Node;
 
 public class Stack {
-    private Node peek;
+    private Object peek;
     private ImmutableLinkedList elements;
 
     public Stack() {
@@ -13,22 +13,19 @@ public class Stack {
     }
 
     public Stack(ImmutableLinkedList elements) {
-        this.peek = elements.getTail();
+        this.peek = elements.getLast();
         this.elements = elements;
     }
 
     public Object getPeek() {
-        if (peek != null) {
-            return peek.getValue();
-        }
-        return null;
+        return peek;
     }
 
     public Object pop() {
         if (elements.size() > 0) {
             Object toReturn = elements.getLast();
             elements = elements.removeLast();
-            peek = elements.getTail();
+            peek = elements.getLast();
             return toReturn;
         }
         else {
