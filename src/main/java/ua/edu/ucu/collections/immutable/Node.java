@@ -29,7 +29,7 @@ public class Node {
         return next;
     }
 
-    public void setNext(Node n {
+    public void setNext(Node n) {
         next = n;
     }
 
