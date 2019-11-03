@@ -145,7 +145,8 @@ public final class ImmutableLinkedList implements ImmutableList {
             elements[i] = curNode.getValue();
             curNode = curNode.getNext();
         }
-        for (int i = index + 1; i < size - 1; i++) {
+        curNode = curNode.getNext();
+        for (int i = index + 1; i < size; i++) {
             elements[i - 1] = curNode.getValue();
             curNode = curNode.getNext();
         }

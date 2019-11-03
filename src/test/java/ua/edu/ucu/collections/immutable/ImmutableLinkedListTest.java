@@ -40,7 +40,7 @@ public class ImmutableLinkedListTest {
     @Test
     public void testAddAll() {
         assertEquals(new Object[] {2, 1, 1, 3, 4},
-                list.add(1, new Object[] {1, 1}).toArray());
+                list.addAll(1, new Object[] {1, 1}).toArray());
     }
 
     @Test
