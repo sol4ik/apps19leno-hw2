@@ -17,9 +17,10 @@ public class Queue {
         this.elements = elements;
     }
 
-    public Object getPeek () {
-        if (peek != null)
+    public Object getPeek() {
+        if (peek != null) {
             return peek.getValue();
+        }
         return null;
     }
 

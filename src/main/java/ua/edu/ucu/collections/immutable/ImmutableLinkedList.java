@@ -1,6 +1,5 @@
 package ua.edu.ucu.collections.immutable;
 
-import javax.swing.*;
 
 public final class ImmutableLinkedList implements ImmutableList {
     private final int size;
@@ -43,8 +42,9 @@ public final class ImmutableLinkedList implements ImmutableList {
 
 
     private void checkIndex(int idx) throws IndexOutOfBoundsException {
-        if (idx > size || idx < 0)
+        if (idx > size || idx < 0) {
             throw new IndexOutOfBoundsException();
+        }
     }
     
     public ImmutableList add(Object e) {
@@ -64,10 +64,13 @@ public final class ImmutableLinkedList implements ImmutableList {
     
     public ImmutableList addAll(int index, Object[] c) {
         Node newHead;
-        if (head != null)
+        if (head != null) {
             newHead = head.clone();
-        else
-            newHead = new Node(null);  // means we will be adding dome values to the head of the list
+        }
+        else {
+            newHead = new Node(null);
+            // means we will be adding dome values to the head of the list
+        }
         Node curNode = newHead;
         Node curPrev = null;
         Node curToCopyFrom = head;
@@ -124,7 +127,8 @@ public final class ImmutableLinkedList implements ImmutableList {
     
     public ImmutableList remove(int index) {
         checkIndex(index);
-        ImmutableLinkedList toReturn = new ImmutableLinkedList(size - 1, head, tail);
+        ImmutableLinkedList toReturn =
+                new ImmutableLinkedList(size - 1, head, tail);
         Node curNode = toReturn.getNode(index).getPrev();
         curNode.setNext(curNode.getNext().getNext());
         return toReturn;
@@ -144,9 +148,10 @@ public final class ImmutableLinkedList implements ImmutableList {
     public int indexOf(Object e) {
         Node curNode;
         curNode = head;
-        for (int i = 0 ; i < size; i++) {
-            if (curNode.getValue() == e)
+        for (int i = 0; i < size; i++) {
+            if (curNode.getValue() == e) {
                 return i;
+            }
             curNode = curNode.getNext();
         }
         return -1;
@@ -164,7 +169,7 @@ public final class ImmutableLinkedList implements ImmutableList {
 
     
     public boolean isEmpty() {
-        return (size == 0);
+        return size == 0;
     }
 
     

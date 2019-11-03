@@ -15,8 +15,9 @@ public class NodeTest {
     @Before
     public void setUp(){
         first = new Node(0);
+        third = new Node("-2");
         second = new Node(null, third, forth);
-        third = new Node("-2", null, second);
+        third.setPrev(second);
         forth = new Node(13, second, null);
     }
 
@@ -54,7 +55,7 @@ public class NodeTest {
     @Test
     public void setNext() {
         first.setNext(forth);
-        assertEquals(forth, first.getValue());
+        assertEquals(forth, first.getNext());
     }
 
 //    @Test

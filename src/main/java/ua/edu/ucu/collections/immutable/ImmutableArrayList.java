@@ -17,8 +17,9 @@ public final class ImmutableArrayList implements ImmutableList {
     }
 
     private void checkIndex(int index) throws IndexOutOfBoundsException {
-        if (index > size || index < 0)
+        if (index > size || index < 0) {
             throw new IndexOutOfBoundsException();
+        }
     }
 
     public ImmutableList add(Object e) {
@@ -34,7 +35,8 @@ public final class ImmutableArrayList implements ImmutableList {
         Object[] newElements = new Object[size + 1];
         System.arraycopy(elements, 0, newElements, 0, index);
         newElements[index] = e;
-        System.arraycopy(elements, index, newElements, index + 1, size - index - 1);
+        System.arraycopy(elements, index, newElements, index + 1,
+                size - index - 1);
         return new ImmutableArrayList(size + 1, newElements);
     }
     
@@ -49,7 +51,8 @@ public final class ImmutableArrayList implements ImmutableList {
         Object[] newElements = new Object[size + c.length];
         System.arraycopy(elements, 0, newElements, 0, index);
         System.arraycopy(c, 0, newElements, index, c.length);
-        System.arraycopy(elements, index, newElements, index + c.length, size - index - 1);
+        System.arraycopy(elements, index, newElements, index + c.length,
+                size - index - 1);
         return new ImmutableArrayList(size + c.length, newElements);
     }
 
@@ -62,10 +65,12 @@ public final class ImmutableArrayList implements ImmutableList {
         checkIndex(index);
         Object[] newElements = new Object[size - 1];
         for (int i = 0; i < size - 1; i++)
-            if (i > index)
+            if (i > index) {
                 newElements[i] = elements[i];
-            else
+            }
+            else {
                 newElements[i] = elements[i + 1];
+            }
         return new ImmutableArrayList(size - 1, newElements);
     }
     
@@ -79,8 +84,9 @@ public final class ImmutableArrayList implements ImmutableList {
     
     public int indexOf(Object e) {
         for (int i = 0; i < size; i++)
-            if (elements[i] == e)
+            if (elements[i] == e) {
                 return i;
+            }
         return -1;
     }
 
@@ -93,7 +99,7 @@ public final class ImmutableArrayList implements ImmutableList {
     }
 
     public boolean isEmpty() {
-        return (size == 0);
+        return size == 0;
     }
 
     public Object[] toArray() {
