@@ -23,36 +23,28 @@ public final class ImmutableArrayList implements ImmutableList {
     }
 
     public ImmutableList add(Object e) {
-        Object[] newElements;
-        newElements = Arrays.copyOf(elements, size);
-        newElements[size - 1] = e;
-        return new ImmutableArrayList(size + 1, newElements);
+        return addAll(size, new Object[] {e});
     }
     
     public ImmutableList add(int index, Object e) {
-        checkIndex(index);
-
-        Object[] newElements = new Object[size + 1];
-        System.arraycopy(elements, 0, newElements, 0, index);
-        newElements[index] = e;
-        System.arraycopy(elements, index, newElements, index + 1,
-                size - index - 1);
-        return new ImmutableArrayList(size + 1, newElements);
+        return addAll(index, new Object[] {e});
     }
     
     public ImmutableList addAll(Object[] c) {
-        Object[] newElements = new Object[size + c.length];
-        System.arraycopy(elements, 0, newElements, 0, size);
-        System.arraycopy(c, 0, newElements, size, c.length);
-        return new ImmutableArrayList(size + c.length, newElements);
+        return addAll(size, c);
     }
 
     public ImmutableList addAll(int index, Object[] c) {
         Object[] newElements = new Object[size + c.length];
-        System.arraycopy(elements, 0, newElements, 0, index);
-        System.arraycopy(c, 0, newElements, index, c.length);
-        System.arraycopy(elements, index, newElements, index + c.length,
-                size - index - 1);
+        for (int i = 0; i < index; i++) {
+            newElements[i] = elements[i];
+        }
+        for (int i = 0; i < c.length; i++) {
+            newElements[index + i] = c[i];
+        }
+        for (int i = index; i < size; i++) {
+            newElements[i + c.length] = elements[i];
+        }
         return new ImmutableArrayList(size + c.length, newElements);
     }
 
@@ -64,22 +56,20 @@ public final class ImmutableArrayList implements ImmutableList {
     public ImmutableList remove(int index) {
         checkIndex(index);
         Object[] newElements = new Object[size - 1];
-        for (int i = 0; i < size - 1; i++)
-            if (i > index) {
-                newElements[i] = elements[i];
-            }
-            else {
-                newElements[i] = elements[i + 1];
-            }
+        for (int i = 0; i < index; i++) {
+            newElements[i] = elements[i];
+        }
+        for (int i = index + 1; i < size - 1; i++) {
+            newElements[i] = elements[i + 1];
+        }
         return new ImmutableArrayList(size - 1, newElements);
     }
     
     public ImmutableList set(int index, Object e) {
         checkIndex(index);
-        Object[] newElements;
-        newElements = Arrays.copyOf(elements, size);
+        Object[] newElements = Arrays.copyOf(elements, size);
         newElements[index] = e;
-        return new ImmutableArrayList(size - 1, newElements);
+        return new ImmutableArrayList(size, newElements);
     }
     
     public int indexOf(Object e) {

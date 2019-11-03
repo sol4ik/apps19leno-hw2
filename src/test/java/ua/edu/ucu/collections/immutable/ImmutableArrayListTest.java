@@ -10,34 +10,50 @@ public class ImmutableArrayListTest {
 
     @Test
     public void add() {
-        ImmutableArrayList newArray = (ImmutableArrayList) empty.add((Integer) 5);
+        ImmutableArrayList newArray = (ImmutableArrayList) empty.add(5);
         assertEquals(1, newArray.size());
-        assertEquals(new Object[] {1}, newArray.toArray());
+        assertEquals(new Object[] {5}, newArray.toArray());
     }
 
-    @Test
+    @Test(expected = IndexOutOfBoundsException.class)
     public void testAdd() {
+        ImmutableArrayList newArray = (ImmutableArrayList) empty.add(2, 5);
     }
 
     @Test
     public void addAll() {
+        ImmutableArrayList newArray = (ImmutableArrayList) array.addAll(new Object[] {3, 4});
+        assertEquals(5, newArray.size());
+        assertEquals(new Object[] {4, 2, 5, 3, 4}, newArray.toArray());
     }
 
     @Test
     public void testAddAll() {
+        ImmutableArrayList newArray = (ImmutableArrayList) empty.addAll(0,  array.toArray());
+        assertEquals(3, newArray.size());
+        assertEquals(new Object[] {4, 2, 5}, newArray.toArray());
     }
 
     @Test
     public void get() {
+        assertEquals(4, array.get(0));
     }
 
     @Test
     public void remove() {
+        ImmutableArrayList newArray = (ImmutableArrayList) array.remove(2);
+        assertEquals(new Object[] {4, 2}, newArray.toArray());
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void set() {
+        array.set(10, -5);
     }
 
     @Test
-    public void set() {
-
+    public void testSet() {
+        ImmutableArrayList newArray = (ImmutableArrayList) array.set(1, 3);
+        assertEquals(new Object[] {4, 3, 5}, newArray.toArray());
     }
 
     @Test

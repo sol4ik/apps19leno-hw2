@@ -25,10 +25,15 @@ public class Queue {
     }
 
     public Object dequeue() {
-        Object toReturn = elements.getFirst();
-        elements = elements.removeFirst();
-        peek = elements.getHead();
-        return toReturn;
+        if (elements.size() > 0) {
+            Object toReturn = elements.getFirst();
+            elements = elements.removeFirst();
+            peek = elements.getHead();
+            return toReturn;
+        }
+        else {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     public void enqueue(Object e) {
