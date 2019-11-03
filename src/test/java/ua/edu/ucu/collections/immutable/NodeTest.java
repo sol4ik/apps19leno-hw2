@@ -57,8 +57,8 @@ public class NodeTest {
         assertEquals(forth, first.getValue());
     }
 
-    @Test
-    public void clone() {
-
-    }
+//    @Test
+//    public void clone() {
+//
+//    }
 }
