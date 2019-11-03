@@ -73,10 +73,11 @@ public final class ImmutableArrayList implements ImmutableList {
     }
     
     public int indexOf(Object e) {
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < size; i++) {
             if (elements[i] == e) {
                 return i;
             }
+        }
         return -1;
     }
 

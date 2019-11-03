@@ -29,16 +29,16 @@ public class Node {
         return next;
     }
 
-    public void setNext(Node next) {
-        this.next = next;
+    public void setNext(Node n {
+        next = n;
     }
 
     public Node getPrev() {
         return prev;
     }
 
-    public void setPrev(Node prev) {
-        this.prev = prev;
+    public void setPrev(Node p) {
+        prev = p;
     }
 
     public Node copy() {
