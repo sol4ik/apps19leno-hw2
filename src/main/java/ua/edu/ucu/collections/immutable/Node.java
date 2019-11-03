@@ -1,6 +1,6 @@
 package ua.edu.ucu.collections.immutable;
 
-public class Node implements Cloneable{
+public class Node {
     private Object value;
     private Node next;
     private Node prev;
@@ -41,8 +41,7 @@ public class Node implements Cloneable{
         this.prev = prev;
     }
 
-    @Override
-    public Node clone() {
+    public Node copy() {
 //        if (tail == null)
 //            return new Node(value, null, prev.clone());
 //        if (prev == null)

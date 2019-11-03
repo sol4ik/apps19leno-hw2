@@ -58,8 +58,11 @@ public class NodeTest {
         assertEquals(forth, first.getNext());
     }
 
-//    @Test
-//    public void clone() {
-//
-//    }
+    @Test
+    public void copy() {
+    Node newClone = second.copy();
+    assertEquals(second.getValue(), newClone.getValue());
+    assertEquals(second.getNext(), newClone.getNext());
+    assertEquals(second.getPrev(), newClone.getPrev());
+    }
 }

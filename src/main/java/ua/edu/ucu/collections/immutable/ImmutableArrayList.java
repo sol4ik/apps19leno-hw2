@@ -107,4 +107,9 @@ public final class ImmutableArrayList implements ImmutableList {
         toReturn = Arrays.copyOf(elements, size);
         return toReturn;
     }
+
+    @Override
+    public String toString() {
+        return Arrays.toString(elements);
+    }
 }

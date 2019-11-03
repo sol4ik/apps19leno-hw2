@@ -1,6 +1,8 @@
 package ua.edu.ucu.collections.immutable;
 
 
+import java.util.Arrays;
+
 public final class ImmutableLinkedList implements ImmutableList {
     private final int size;
     private final Node head;
@@ -14,21 +16,21 @@ public final class ImmutableLinkedList implements ImmutableList {
 
     public ImmutableLinkedList(int size, Node head, Node tail) {
         this.size = size;
-        this.head = head.clone();
+        this.head = head.copy();
 
         Node curToCopyFrom = head;
         Node curPrev = null;
         Node curNode = this.head;
 
         while (curNode != tail) {
-            curNode.setNext(curToCopyFrom.getNext().clone());
+            curNode.setNext(curToCopyFrom.getNext().copy());
             curNode.setPrev(curPrev);
 
             curNode = curNode.getNext();
             curPrev = curNode;
             curToCopyFrom = curToCopyFrom.getNext();
         }
-        this.tail = tail.clone();
+        this.tail = tail.copy();
         this.tail.setPrev(curNode);
     }
 
@@ -65,7 +67,7 @@ public final class ImmutableLinkedList implements ImmutableList {
     public ImmutableList addAll(int index, Object[] c) {
         Node newHead;
         if (head != null) {
-            newHead = head.clone();
+            newHead = head.copy();
         }
         else {
             newHead = new Node(null);
@@ -75,7 +77,7 @@ public final class ImmutableLinkedList implements ImmutableList {
         Node curPrev = null;
         Node curToCopyFrom = head;
         for (int i = 0; i < index; i++) {
-            curNode.setNext(curToCopyFrom.getNext().clone());
+            curNode.setNext(curToCopyFrom.getNext().copy());
             curNode.setPrev(curPrev);
 
             curPrev = curNode;
@@ -88,7 +90,7 @@ public final class ImmutableLinkedList implements ImmutableList {
             curNode = curNode.getNext();
         }
         for (int i = index + c.length; i < size; i++) {
-            curNode.setNext(curToCopyFrom.getNext().clone());
+            curNode.setNext(curToCopyFrom.getNext().copy());
             curNode.setPrev(curPrev);
 
             curPrev = curNode;
@@ -207,5 +209,11 @@ public final class ImmutableLinkedList implements ImmutableList {
 
     public ImmutableLinkedList removeLast() {
         return new ImmutableLinkedList(size - 1, head, tail.getPrev());
+    }
+
+    @Override
+    public String toString() {
+        Object[] array = toArray();
+        return Arrays.toString(array);
     }
 }
