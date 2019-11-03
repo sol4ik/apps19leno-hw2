@@ -28,6 +28,7 @@ public class Stack {
         if (elements.size() > 0) {
             Object toReturn = elements.getLast();
             elements = elements.removeLast();
+            peek = elements.getTail();
             return toReturn;
         }
         else {
