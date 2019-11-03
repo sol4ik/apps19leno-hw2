@@ -34,6 +34,6 @@ public class Stack {
 
     public void push(Object e) {
         elements = elements.addLast(e);
-        peek = elements.getTail();
+        peek = elements.getLast();
     }
 }
