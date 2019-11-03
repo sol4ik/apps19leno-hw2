@@ -1,9 +1,11 @@
 package ua.edu.ucu.collections.immutable;
 
+import javax.swing.*;
+
 public final class ImmutableLinkedList implements ImmutableList {
     private final int size;
-    private final ImmutableNode head;
-    private final ImmutableNode tail;
+    private final Node head;
+    private final Node tail;
 
     public ImmutableLinkedList() {
         size = 0;
@@ -11,19 +13,34 @@ public final class ImmutableLinkedList implements ImmutableList {
         tail = null;
     }
 
-    public ImmutableLinkedList(int size, ImmutableNode head, ImmutableNode tail) {
+    public ImmutableLinkedList(int size, Node head, Node tail) {
         this.size = size;
-        this.head = head;
-        this.tail = tail;
+        this.head = head.clone();
+
+        Node curToCopyFrom = head;
+        Node curPrev = null;
+        Node curNode = this.head;
+
+        while (curNode != tail) {
+            curNode.setNext(curToCopyFrom.getNext().clone());
+            curNode.setPrev(curPrev);
+
+            curNode = curNode.getNext();
+            curPrev = curNode;
+            curToCopyFrom = curToCopyFrom.getNext();
+        }
+        this.tail = tail.clone();
+        this.tail.setPrev(curNode);
     }
 
-    public ImmutableNode getHead() {
+    public Node getHead() {
         return head;
     }
 
-    public ImmutableNode getTail() {
+    public Node getTail() {
         return tail;
     }
+
 
     private void checkIndex(int idx) throws IndexOutOfBoundsException {
         if (idx > size || idx < 0)
@@ -31,54 +48,108 @@ public final class ImmutableLinkedList implements ImmutableList {
     }
     
     public ImmutableList add(Object e) {
-        ImmutableNode newHead;
-        
-        ImmutableNode curNode = newHead;
-
-        return new ImmutableLinkedList(size + 1, newHead);
+        return addAll(size, new Object[] {e});
     }
 
     
     public ImmutableList add(int index, Object e) {
-        return null;
+        return addAll(index, new Object[] {e});
     }
 
     
     public ImmutableList addAll(Object[] c) {
-        return null;
+        return addAll(size, c);
     }
 
     
     public ImmutableList addAll(int index, Object[] c) {
-        return null;
+        Node newHead;
+        if (head != null)
+            newHead = head.clone();
+        else
+            newHead = new Node(null);  // means we will be adding dome values to the head of the list
+        Node curNode = newHead;
+        Node curPrev = null;
+        Node curToCopyFrom = head;
+        for (int i = 0; i < index; i++) {
+            curNode.setNext(curToCopyFrom.getNext().clone());
+            curNode.setPrev(curPrev);
+
+            curPrev = curNode;
+            curNode = curNode.getNext();
+            curToCopyFrom = curToCopyFrom.getNext();
+        }
+        for (int i = 0; i < c.length; i++) {
+            curNode.setNext(new Node(c[i], null, curPrev));
+            curPrev = curNode;
+            curNode = curNode.getNext();
+        }
+        for (int i = index + c.length; i < size; i++) {
+            curNode.setNext(curToCopyFrom.getNext().clone());
+            curNode.setPrev(curPrev);
+
+            curPrev = curNode;
+            curNode = curNode.getNext();
+            curToCopyFrom = curToCopyFrom.getNext();
+        }
+        Node newTail = curNode;
+        return new ImmutableLinkedList(size + c.length, newHead, newTail);
     }
 
-    
+    public Node getNode(int index) {
+        checkIndex(index);
+        Node curNode;
+        if (index < size / 2) {
+            int idx = 0;
+            curNode = head;
+            while (idx != index) {
+                curNode = curNode.getNext();
+                idx++;
+            }
+        }
+        else {
+            int idx = size - 1;
+            curNode = tail;
+            while (idx != index) {
+                curNode = curNode.getPrev();
+                idx--;
+            }
+        }
+        return curNode;
+    }
+
     public Object get(int index) {
-        return null;
+        return getNode(index).getValue();
     }
-
     
     public ImmutableList remove(int index) {
-        return null;
+        checkIndex(index);
+        ImmutableLinkedList toReturn = new ImmutableLinkedList(size - 1, head, tail);
+        Node curNode = toReturn.getNode(index).getPrev();
+        curNode.setNext(curNode.getNext().getNext());
+        return toReturn;
     }
 
     
     public ImmutableList set(int index, Object e) {
         checkIndex(index);
-        return null;
+        ImmutableLinkedList toReturn;
+        toReturn = new ImmutableLinkedList(size, head, tail);
+        Node curNode = toReturn.getNode(index);
+        curNode.setValue(e);
+        return toReturn;
     }
 
     
     public int indexOf(Object e) {
-        ImmutableNode curNode;
+        Node curNode;
         curNode = head;
         for (int i = 0 ; i < size; i++) {
             if (curNode.getValue() == e)
                 return i;
             curNode = curNode.getNext();
-            return -1;
         }
+        return -1;
     }
 
     
@@ -100,7 +171,7 @@ public final class ImmutableLinkedList implements ImmutableList {
     public Object[] toArray() {
         Object[] toReturn;
         toReturn = new Object[size];
-        ImmutableNode curNode;
+        Node curNode;
         curNode = head;
         for (int i = 0; i < size; i++) {
             toReturn[i] = curNode.getValue();
@@ -110,17 +181,11 @@ public final class ImmutableLinkedList implements ImmutableList {
     }
 
     public ImmutableLinkedList addFirst(Object e) {
-        ImmutableNode newHead;
-        newHead = new ImmutableNode(e, null, null);
-        newHead.setNext(head.clone());
-        ImmutableNode newTail;
-        return new ImmutableLinkedList(size + 1, newHead, newTail);
+        return (ImmutableLinkedList) add(0, e);
     }
 
     public ImmutableLinkedList addLast(Object e) {
-        ImmutableNode newHead;
-        ImmutableNode newTail;
-        return new ImmutableLinkedList(size + 1, newHead, newTail);
+        return (ImmutableLinkedList) add(size, e);
     }
 
     public Object getFirst() {
@@ -132,14 +197,10 @@ public final class ImmutableLinkedList implements ImmutableList {
     }
 
     public ImmutableLinkedList removeFirst() {
-        ImmutableNode newHead;
-        ImmutableNode newTail;
-        return new ImmutableLinkedList(size - 1, newHead, newTail);
+        return new ImmutableLinkedList(size - 1, head.getNext(), tail);
     }
 
     public ImmutableLinkedList removeLast() {
-        ImmutableNode newHead;
-        ImmutableNode newTail;
-        return new ImmutableLinkedList(size - 1, newHead, newTail);
+        return new ImmutableLinkedList(size - 1, head, tail.getPrev());
     }
 }

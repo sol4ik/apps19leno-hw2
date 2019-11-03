@@ -1,10 +1,10 @@
 package ua.edu.ucu.collections;
 
 import ua.edu.ucu.collections.immutable.ImmutableLinkedList;
-import ua.edu.ucu.collections.immutable.ImmutableNode;
+import ua.edu.ucu.collections.immutable.Node;
 
 public class Queue {
-    private ImmutableNode peek;
+    private Node peek;
     private ImmutableLinkedList elements;
 
     public Queue() {
