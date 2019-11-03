@@ -165,7 +165,7 @@ public final class ImmutableLinkedList implements ImmutableList {
 
     
     public ImmutableList clear() {
-        return new ImmutableLinkedList(0, null);
+        return new ImmutableLinkedList();
     }
 
     
