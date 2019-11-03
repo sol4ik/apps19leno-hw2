@@ -32,7 +32,7 @@ public class Queue {
             return toReturn;
         }
         else {
-            throw new IndexOutOfBoundsException();
+            return null;
         }
     }
 

@@ -13,7 +13,7 @@ public class Stack {
     }
 
     public Stack(ImmutableLinkedList elements) {
-        this.peek = elements.getHead();
+        this.peek = elements.getTail();
         this.elements = elements;
     }
 
@@ -25,12 +25,17 @@ public class Stack {
     }
 
     public Object pop() {
-        Object toReturn = elements.getLast();
-        elements = elements.removeLast();
-        return toReturn;
+        if (elements.size() > 0) {
+            Object toReturn = elements.getLast();
+            elements = elements.removeLast();
+            return toReturn;
+        }
+        else {
+            return null;
+        }
     }
 
-    public void enqueue(Object e) {
+    public void push(Object e) {
         elements = elements.addLast(e);
         peek = elements.getTail();
     }
