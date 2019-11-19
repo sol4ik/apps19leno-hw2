@@ -22,19 +22,19 @@ public final class ImmutableArrayList implements ImmutableList {
         }
     }
 
-    public ImmutableList add(Object e) {
+    public ImmutableArrayList add(Object e) {
         return addAll(size, new Object[] {e});
     }
     
-    public ImmutableList add(int index, Object e) {
+    public ImmutableArrayList add(int index, Object e) {
         return addAll(index, new Object[] {e});
     }
     
-    public ImmutableList addAll(Object[] c) {
+    public ImmutableArrayList addAll(Object[] c) {
         return addAll(size, c);
     }
 
-    public ImmutableList addAll(int index, Object[] c) {
+    public ImmutableArrayList addAll(int index, Object[] c) {
         Object[] newElements = new Object[size + c.length];
         for (int i = 0; i < index; i++) {
             newElements[i] = elements[i];
@@ -53,19 +53,19 @@ public final class ImmutableArrayList implements ImmutableList {
         return elements[index];
     }
 
-    public ImmutableList remove(int index) {
+    public ImmutableArrayList remove(int index) {
         checkIndex(index);
         Object[] newElements = new Object[size - 1];
         for (int i = 0; i < index; i++) {
             newElements[i] = elements[i];
         }
-        for (int i = index + 1; i < size - 1; i++) {
+        for (int i = index; i < size - 1; i++) {
             newElements[i] = elements[i + 1];
         }
         return new ImmutableArrayList(size - 1, newElements);
     }
     
-    public ImmutableList set(int index, Object e) {
+    public ImmutableArrayList set(int index, Object e) {
         checkIndex(index);
         Object[] newElements = Arrays.copyOf(elements, size);
         newElements[index] = e;
@@ -74,7 +74,7 @@ public final class ImmutableArrayList implements ImmutableList {
     
     public int indexOf(Object e) {
         for (int i = 0; i < size; i++) {
-            if (elements[i] == e) {
+            if (elements[i].equals(e)) {
                 return i;
             }
         }
@@ -85,7 +85,7 @@ public final class ImmutableArrayList implements ImmutableList {
         return size;
     }
 
-    public ImmutableList clear() {
+    public ImmutableArrayList clear() {
         return new ImmutableArrayList(0, new Object[] {});
     }
 

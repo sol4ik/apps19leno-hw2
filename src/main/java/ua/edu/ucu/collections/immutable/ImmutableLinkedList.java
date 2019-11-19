@@ -48,22 +48,22 @@ public final class ImmutableLinkedList implements ImmutableList {
         }
     }
     
-    public ImmutableList add(Object e) {
+    public ImmutableLinkedList add(Object e) {
         return addAll(size, new Object[] {e});
     }
 
     
-    public ImmutableList add(int index, Object e) {
+    public ImmutableLinkedList add(int index, Object e) {
         return addAll(index, new Object[] {e});
     }
 
     
-    public ImmutableList addAll(Object[] c) {
+    public ImmutableLinkedList addAll(Object[] c) {
         return addAll(size, c);
     }
 
     
-    public ImmutableList addAll(int index, Object[] c) {
+    public ImmutableLinkedList addAll(int index, Object[] c) {
         Object[] elements = new Object[size + c.length];
         Node newHead;
         if (head != null) {
@@ -105,7 +105,7 @@ public final class ImmutableLinkedList implements ImmutableList {
         return getNode(index).getValue();
     }
     
-    public ImmutableList remove(int index) {
+    public ImmutableLinkedList remove(int index) {
         checkIndex(index);
         Object[] elements = new Object[size - 1];
         Node curNode = head;
@@ -122,7 +122,7 @@ public final class ImmutableLinkedList implements ImmutableList {
     }
 
     
-    public ImmutableList set(int index, Object e) {
+    public ImmutableLinkedList set(int index, Object e) {
         checkIndex(index);
         Object[] elements = toArray();
         elements[index] = e;
@@ -134,7 +134,7 @@ public final class ImmutableLinkedList implements ImmutableList {
         Node curNode;
         curNode = head;
         for (int i = 0; i < size; i++) {
-            if (curNode.getValue() == e) {
+            if (curNode.getValue().equals(e)) {
                 return i;
             }
             curNode = curNode.getNext();
@@ -148,7 +148,7 @@ public final class ImmutableLinkedList implements ImmutableList {
     }
 
     
-    public ImmutableList clear() {
+    public ImmutableLinkedList clear() {
         return new ImmutableLinkedList();
     }
 
